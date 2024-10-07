@@ -101,6 +101,9 @@ export class Dapp extends React.Component {
               </b>
               .
             </p>
+            <p>
+              Total Supply: <b>{this.state.totalSupply}</b> {this.state.tokenData.symbol}
+            </p>
           </div>
         </div>
 
@@ -210,7 +213,13 @@ export class Dapp extends React.Component {
     // sample project, but you can reuse the same initialization pattern.
     this._initializeEthers();
     this._getTokenData();
+    this._getTotalSupply();
     this._startPollingData();
+  }
+
+  async _getTotalSupply() {
+    const totalSupply = await this._token.getTotalSupply();
+    this.setState({ totalSupply: totalSupply.toString() });
   }
 
   async _initializeEthers() {
